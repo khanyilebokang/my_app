@@ -42,41 +42,17 @@ Widget build(BuildContext context){
       ListTile(
         title: const Text('Item One'),
         onTap: (){
-          Navigator.push(context,
-         MaterialPageRoute(builder: (context) => ItemOnePage()));
-        }),
+          Navigator.pop(context);
+        }
+      ),
       ListTile(title: const Text('Item Two'),
        onTap: (){
-          Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ItemTwoPage()));
-        })
+          Navigator.pop(context);
+        }
+      )
         ]
       )),
   );
 }
-}
-
-
-class ItemOnePage extends StatelessWidget{
-  const ItemOnePage({super.key});
-@override
-  Widget build(BuildContext context) {
-     return Scaffold(
-      appBar: AppBar(title:Text('Item One')),
-      body: const Center(child: Text('ITEM ONE SCREEN'),)
-       );
-  }
-
-}
-
-class ItemTwoPage extends StatelessWidget{
-  const ItemTwoPage({super.key});
-@override
-  Widget build(BuildContext context) {
-     return Scaffold(
-      appBar: AppBar(title:Text('Item Two')),
-      body: const Center(child: Text('ITEM TWO SCREEN'),)
-       );
-  }
 
 }
