@@ -1,82 +1,60 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+class Todo{
+  final String title;
+  final String description;
 
-class MyApp extends StatelessWidget{
-const MyApp({super.key});
- 
- @override
- Widget build(BuildContext context) {
-  return const MaterialApp(
-     title:'app',
-
-
-
-     
-      home: MyHomePage(),
-  );
- }
+  const Todo(this.title, this.description);
 }
 
-class MyHomePage extends StatelessWidget{
-const MyHomePage({super.key});
+List<Todo> mycustomlist = [
+  Todo('Paint Town', 'Paint it Red!!!!!!! '),
+  Todo('Pet the cat','Give her food'),
+  Todo('Make a buger','Dont forget to get the items')
+];
+
+void main(){
+  runApp( MaterialApp(title:'App',home:TodosScreen(todos:mycustomlist)));
+} 
+
+class TodosScreen extends StatelessWidget{
+
+  const TodosScreen({Key? key,required this.todos}) : super(key: key);
+
+  final List<Todo> todos;
 
   @override
-Widget build(BuildContext context){   
-  return Scaffold(
-    appBar:AppBar(title: Text('Home Screen')),
-    body:const Center(child: Text('My HomePage!')),
-    drawer:Drawer(
-    child:ListView(
-    children:  [
-      const SizedBox(height: 60.0,
-      child: const DrawerHeader(
-      decoration: BoxDecoration(color: Colors.blue),
-      child: Text('Drawer Header'),
-      )),
-
-      const DrawerHeader(
-      decoration: BoxDecoration(color: Colors.blue),
-      child: Text('Drawer Header'),
-    ),
-      ListTile(
-        title: const Text('Item One'),
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(title: const Text('Todos')),
+      body: ListView.builder(
+      itemCount: todos.length,
+        itemBuilder: (context,index){
+        return ListTile(title:Text(todos[index].title),
         onTap: (){
-          Navigator.push(context,
-         MaterialPageRoute(builder: (context) => ItemOnePage()));
-        }),
-      ListTile(title: const Text('Item Two'),
-       onTap: (){
-          Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ItemTwoPage()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+            builder: (context) => DetailScreen(todo: todos[index]),
+            ));
+        },
+        );
         })
-        ]
-      )),
+    );
+  }
+}
+class DetailScreen extends StatelessWidget{
+
+const  DetailScreen({Key? key, required this.todo}): super(key:key);
+
+final Todo todo;
+
+
+@override
+Widget build(BuildContext context){
+  return Scaffold(
+    appBar: AppBar(title: Text(todo.title)),
+    body: Center(child: Text(todo.description),)
   );
 }
-}
-
-
-class ItemOnePage extends StatelessWidget{
-  const ItemOnePage({super.key});
-@override
-  Widget build(BuildContext context) {
-     return Scaffold(
-      appBar: AppBar(title:Text('Item One')),
-      body: const Center(child: Text('ITEM ONE SCREEN'),)
-       );
-  }
-
-}
-
-class ItemTwoPage extends StatelessWidget{
-  const ItemTwoPage({super.key});
-@override
-  Widget build(BuildContext context) {
-     return Scaffold(
-      appBar: AppBar(title:Text('Item Two')),
-      body: const Center(child: Text('ITEM TWO SCREEN'),)
-       );
-  }
-
 }
